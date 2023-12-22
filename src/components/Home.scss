@@ -1,0 +1,35 @@
+.hero_sec {
+  height: 100vh !important;
+}
+.top-header-area {
+  position: fixed;
+  background-color: #051922;
+  top: 0;
+  left: 0;
+}
+.logo-carousel-inner {
+  display: flex;
+  justify-content: space-around;
+}
+.slick-arrow::before {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .all_home_page {
+    margin: auto;
+    overflow-x: hidden;
+  }
+}
+@media (max-width: 768px) {
+  .all_home_page {
+    margin: auto;
+    overflow-x: hidden;
+  }
+}
+@media (max-width: 450px) {
+  .all_home_page {
+    margin: auto;
+    overflow-x: hidden;
+  }
+}

@@ -1,0 +1,49 @@
+.tb_head {
+  background-color: #6777ef !important;
+  color: #fafafa !important;
+}
+.action_product {
+  display: flex;
+  gap: 20px;
+}
+.show-img {
+  float: left;
+  margin-bottom: 15px;
+  margin-top: 28px;
+  margin-left: -47px;
+}
+.show-edit-img {
+  margin-bottom: 15px;
+  margin-top: 28px;
+  margin-left: -103px;
+}
+.img_label {
+  float: left;
+}
+.toggle {
+  width: 60px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #bdc1c8;
+  padding: 5px 4px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.spinner {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+}
+.toggle.active_stocking {
+  background-color: #66bb6a;
+  padding-left: 36px;
+}
+
+.toggle.active_sold_out {
+  background-color: #fc544b;
+  padding-left: 36px;
+}
+.page-item {
+  cursor: pointer;
+}
