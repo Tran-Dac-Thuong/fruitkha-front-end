@@ -128,7 +128,7 @@ const OrderHistory = (props) => {
             backgroundColor: theme === "SUN" ? "white" : "#1a1a1a",
           }}
         >
-          <div className="container">
+          <div className="container table-responsive">
             {allOrders && allOrders.length > 0 ? (
               <>
                 <table className="table">

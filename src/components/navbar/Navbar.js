@@ -106,298 +106,597 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="top-header-area" id="sticker">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 col-sm-12 text-center">
-              <div className="main-menu-wrap">
-                <div className="site-logo">
-                  <Link to="/">
-                    <img src="assets/img/logo.png" alt="" />
-                  </Link>
-                </div>
+      <nav
+        class="navbar navbar-expand-lg navbar-dark fixed-top d-none d-lg-flex justify-content-between "
+        style={{ padding: "15px 0", backgroundColor: "#051922" }}
+      >
+        <div class="container">
+          <Link to="/" class="navbar-brand">
+            <img
+              src="assets/img/logo.png"
+              style={{ minWidth: "150px" }}
+              alt=""
+            />
+          </Link>
 
-                <nav
-                  className={`${
-                    showBar === true ? "main-menu-mobile" : "main-menu"
-                  }`}
-                >
-                  <ul>
-                    <li>
-                      <FontAwesomeIcon
-                        onClick={() => HandleHideBar()}
-                        className="x_icon"
-                        icon={icon({ name: "x" })}
-                      />
-                    </li>
-
-                    <li>
-                      <NavLink to="/">
-                        {language === "VN" ? <>Trang chủ</> : <>Home</>}
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/about">
-                        {language === "VN" ? <>Về chúng tôi</> : <>About</>}
-                      </NavLink>
-                    </li>
-
-                    <li>
-                      <NavLink to="/news">
-                        {language === "VN" ? <>Tin tức</> : <>News</>}
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/contact">
-                        {language === "VN" ? <>Liên hệ</> : <>Contact</>}
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/product">
-                        {language === "VN" ? <>Cửa hàng</> : <>Shop</>}
-                      </NavLink>
-                    </li>
-                    {logged === true ? (
+          <ul
+            class="navbar-nav d-none d-lg-flex align-self-center nav_mobile"
+            style={{ paddingLeft: "125px" }}
+          >
+            <li class="nav-item">
+              <NavLink to="/" className="nav-link">
+                {language === "VN" ? <>Trang chủ</> : <>Home</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/about" className="nav-link">
+                {language === "VN" ? <>Về chúng tôi</> : <>About</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/news" className="nav-link">
+                {language === "VN" ? <>Tin tức</> : <>News</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/contact" className="nav-link">
+                {language === "VN" ? <>Liên hệ</> : <>Contact</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/product" className="nav-link">
+                {language === "VN" ? <>Cửa hàng</> : <>Shop</>}
+              </NavLink>
+            </li>
+            {logged === true ? (
+              <>
+                {currentUserAuthProvider === true ? (
+                  <>
+                    {provider === true ? (
                       <>
-                        {currentUserAuthProvider === true ? (
-                          <>
-                            {provider === true ? (
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src={currentGoogleUserAvatar}
-                                    style={{
-                                      borderRadius: "50%",
-                                      width: "45px",
-                                    }}
-                                  />
-                                </a>
-                                <ul
-                                  className="sub-menu"
-                                  style={{
-                                    marginTop: "14px",
-                                    marginLeft: "5px",
-                                  }}
-                                >
-                                  <li>
-                                    <Link to="/order-history">
-                                      {language === "VN" ? (
-                                        <>Lịch sử đơn hàng</>
-                                      ) : (
-                                        <>Order History</>
-                                      )}
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <a onClick={() => HandleLogout()}>
-                                      {language === "VN" ? (
-                                        <>Đăng xuất</>
-                                      ) : (
-                                        <>Logout</>
-                                      )}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </li>
-                            ) : (
-                              <li>
-                                <a href="#">
-                                  <img
-                                    src={currentFacebookUserAvatar}
-                                    style={{
-                                      borderRadius: "50%",
-                                      width: "45px",
-                                    }}
-                                  />
-                                </a>
-                                <ul
-                                  className="sub-menu"
-                                  style={{
-                                    marginTop: "14px",
-                                    marginLeft: "5px",
-                                  }}
-                                >
-                                  <li>
-                                    <Link to="/order-history">
-                                      {language === "VN" ? (
-                                        <>Lịch sử đơn hàng</>
-                                      ) : (
-                                        <>Order History</>
-                                      )}
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <a onClick={() => HandleLogout()}>
-                                      {language === "VN" ? (
-                                        <>Đăng xuất</>
-                                      ) : (
-                                        <>Logout</>
-                                      )}
-                                    </a>
-                                  </li>
-                                </ul>
-                              </li>
-                            )}
-                          </>
-                        ) : (
-                          <li>
-                            <a href="#" className="user_avatar">
-                              {currentAvatar === null ||
-                              currentAvatar === "undefined" ? (
-                                <FontAwesomeIcon
-                                  style={{ fontSize: "18px" }}
-                                  icon={icon({ name: "user" })}
-                                />
-                              ) : (
-                                <img
-                                  src={`http://localhost:3434/images/users/${currentAvatar}`}
-                                  width="45px"
-                                  style={{ borderRadius: "50%" }}
-                                />
-                              )}
-
-                              <span style={{ marginLeft: "8px" }}>
-                                {currentUsername}
-                              </span>
-                            </a>
-                            <ul className="sub-menu">
-                              <li>
-                                <Link to="/profile">
-                                  {language === "VN" ? (
-                                    <>Thông tin của tôi</>
-                                  ) : (
-                                    <>My Profile</>
-                                  )}
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/order-history">
-                                  {language === "VN" ? (
-                                    <>Lịch sử đơn hàng</>
-                                  ) : (
-                                    <>Order History</>
-                                  )}
-                                </Link>
-                              </li>
-                              <li>
-                                <a onClick={() => HandleLogout()}>
-                                  {language === "VN" ? (
-                                    <>Đăng xuất</>
-                                  ) : (
-                                    <>Logout</>
-                                  )}
-                                </a>
-                              </li>
-                            </ul>
-                          </li>
-                        )}
-                      </>
-                    ) : (
-                      <li>
-                        <NavLink to="/login">
-                          {language === "VN" ? <>Đăng nhập</> : <>Sign in</>}
-                        </NavLink>
-                      </li>
-                    )}
-                    <li>
-                      <a>
-                        <FontAwesomeIcon
-                          style={{ fontSize: "18px", marginRight: "5px" }}
-                          icon={icon({ name: "globe" })}
-                        />
-                        {language === "VN" ? <>Tiếng Việt</> : <>English</>}
-                      </a>
-                      <ul className="sub-menu" style={{ width: "150px" }}>
-                        <li>
+                        <li class="nav-item dropdown">
                           <a
-                            style={{ display: "flex" }}
-                            onClick={() => HandleChangeLanguage("VN")}
+                            class="nav-link dropdown-toggle logo_mobile"
+                            href="#"
+                            id="navbardrop"
+                            data-bs-toggle="dropdown"
                           >
                             <img
-                              src="./assets/img/country-logo/vn.svg"
+                              src={currentGoogleUserAvatar}
                               style={{
-                                width: "35px",
-                                height: "25px",
-                                marginRight: "5px",
+                                borderRadius: "50%",
+                                width: "30px",
                               }}
                             />
-                            Tiếng Việt
                           </a>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <NavLink
+                                to="/order-history"
+                                className="dropdown-item"
+                              >
+                                {language === "VN" ? (
+                                  <>Lịch sử đơn hàng</>
+                                ) : (
+                                  <>Order History</>
+                                )}
+                              </NavLink>
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={() => HandleLogout()}
+                                href="#"
+                              >
+                                {language === "VN" ? (
+                                  <>Đăng xuất</>
+                                ) : (
+                                  <>Logout</>
+                                )}
+                              </a>
+                            </li>
+                          </ul>
                         </li>
-                        <hr />
-                        <li>
-                          <a onClick={() => HandleChangeLanguage("ENG")}>
+                      </>
+                    ) : (
+                      <>
+                        <li class="nav-item dropdown">
+                          <a
+                            class="nav-link dropdown-toggle logo_mobile"
+                            href="#"
+                            id="navbardrop"
+                            data-bs-toggle="dropdown"
+                          >
                             <img
-                              src="./assets/img/country-logo/eng.svg"
+                              src={currentFacebookUserAvatar}
                               style={{
-                                width: "35px",
-                                height: "25px",
-                                marginRight: "5px",
+                                borderRadius: "50%",
+                                width: "30px",
                               }}
                             />
-                            English
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <NavLink
+                                to="/order-history"
+                                className="dropdown-item"
+                              >
+                                {language === "VN" ? (
+                                  <>Lịch sử đơn hàng</>
+                                ) : (
+                                  <>Order History</>
+                                )}
+                              </NavLink>
+                            </li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => HandleLogout()}
+                              href="#"
+                            >
+                              {language === "VN" ? <>Đăng xuất</> : <>Logout</>}
+                            </a>
+                          </ul>
+                        </li>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <li class="nav-item dropdown">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="navbardrop"
+                        data-bs-toggle="dropdown"
+                      >
+                        {currentAvatar === null ||
+                        currentAvatar === "undefined" ? (
+                          <FontAwesomeIcon
+                            style={{ fontSize: "18px" }}
+                            icon={icon({ name: "user" })}
+                          />
+                        ) : (
+                          <img
+                            src={`http://localhost:3434/images/users/${currentAvatar}`}
+                            width="30px"
+                            style={{ borderRadius: "50%" }}
+                          />
+                        )}
+
+                        <span style={{ marginLeft: "8px" }}>
+                          {currentUsername}
+                        </span>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <NavLink to="/profile" className="dropdown-item">
+                            {language === "VN" ? (
+                              <>Thông tin của tôi</>
+                            ) : (
+                              <>My Profile</>
+                            )}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/order-history"
+                            className="dropdown-item"
+                          >
+                            {language === "VN" ? (
+                              <>Lịch sử đơn hàng</>
+                            ) : (
+                              <>Order History</>
+                            )}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            onClick={() => HandleLogout()}
+                            href="#"
+                          >
+                            {language === "VN" ? <>Đăng xuất</> : <>Logout</>}
                           </a>
                         </li>
                       </ul>
                     </li>
-                    <li>
-                      {theme === "SUN" ? (
-                        <a>
-                          <FontAwesomeIcon
-                            style={{ fontSize: "18px" }}
-                            icon={icon({ name: "sun" })}
-                            onClick={() => HandleChangeTheme("MOON")}
-                          />
-                        </a>
-                      ) : (
-                        <a>
-                          <FontAwesomeIcon
-                            style={{ fontSize: "18px" }}
-                            icon={icon({ name: "moon" })}
-                            onClick={() => HandleChangeTheme("SUN")}
-                          />
-                        </a>
-                      )}
-                    </li>
-                    {logged === true ? (
-                      <li>
-                        <div className="header-icons">
-                          <NavLink to="/cart">
-                            <i
-                              className="fas fa-shopping-cart shopping-cart"
-                              id="icon_cart"
-                            ></i>
-                            <span className="cart_count">
-                              {listCarts.length}
-                            </span>
-                          </NavLink>
-                        </div>
-                      </li>
-                    ) : (
-                      <li>
-                        <div className="header-icons">
-                          <NavLink to="/cart">
-                            <i
-                              className="fas fa-shopping-cart shopping-cart"
-                              id="icon_cart"
-                            ></i>
-                          </NavLink>
-                        </div>
-                      </li>
-                    )}
-                  </ul>
-                </nav>
+                  </>
+                )}
+              </>
+            ) : (
+              <li class="nav-item">
+                <NavLink to="/login" className="nav-link">
+                  {language === "VN" ? <>Đăng nhập</> : <>Sign in</>}
+                </NavLink>
+              </li>
+            )}
+          </ul>
 
+          <ul
+            class="navbar-nav d-none d-lg-flex"
+            style={{ marginRight: "-1px" }}
+          >
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbardrop"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
                 <FontAwesomeIcon
-                  onClick={() => HandleShowBar()}
-                  className="bars_icon"
-                  icon={icon({ name: "bars" })}
+                  style={{ fontSize: "18px", marginRight: "5px" }}
+                  icon={icon({ name: "globe" })}
                 />
-              </div>
-            </div>
-          </div>
+                {language === "VN" ? <>Tiếng Việt</> : <>English</>}
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => HandleChangeLanguage("VN")}
+                  >
+                    <img
+                      src="./assets/img/country-logo/vn.svg"
+                      style={{
+                        width: "35px",
+                        height: "25px",
+                        marginRight: "5px",
+                      }}
+                    />
+                    Tiếng Việt
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => HandleChangeLanguage("ENG")}
+                  >
+                    <img
+                      src="./assets/img/country-logo/eng.svg"
+                      style={{
+                        width: "35px",
+                        height: "25px",
+                        marginRight: "5px",
+                      }}
+                    />
+                    English
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              {theme === "SUN" ? (
+                <a class="nav-link">
+                  <FontAwesomeIcon
+                    style={{ fontSize: "18px" }}
+                    icon={icon({ name: "sun" })}
+                    onClick={() => HandleChangeTheme("MOON")}
+                  />
+                </a>
+              ) : (
+                <a class="nav-link">
+                  <FontAwesomeIcon
+                    style={{ fontSize: "18px" }}
+                    icon={icon({ name: "moon" })}
+                    onClick={() => HandleChangeTheme("SUN")}
+                  />
+                </a>
+              )}
+            </li>
+
+            {logged === true ? (
+              <li class="nav-item">
+                <NavLink to="/cart" className="nav-link">
+                  <i
+                    className="fas fa-shopping-cart shopping-cart"
+                    id="icon_cart"
+                  ></i>
+                  <span className="cart_count">{listCarts.length}</span>
+                </NavLink>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <NavLink to="/cart" className="nav-link">
+                  <i
+                    className="fas fa-shopping-cart shopping-cart"
+                    id="icon_cart"
+                  ></i>
+                </NavLink>
+              </li>
+            )}
+          </ul>
         </div>
-      </div>
+      </nav>
+
+      <nav
+        class="navbar navbar-expand-lg d-lg-none navbar-dark justify-content-between fixed-top"
+        style={{ backgroundColor: "#051922" }}
+      >
+        <Link to="/" className="navbar-brand">
+          <img src="assets/img/logo.png" style={{ minWidth: "150px" }} alt="" />
+        </Link>
+
+        <button
+          class="navbar-toggler d-lg-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-lg-none" id="collapsibleNavbar">
+          <ul class="navbar-nav d-lg-none">
+            <li class="nav-item">
+              <NavLink to="/" className="nav-link">
+                {language === "VN" ? <>Trang chủ</> : <>Home</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/about" className="nav-link">
+                {language === "VN" ? <>Về chúng tôi</> : <>About</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/news" className="nav-link">
+                {language === "VN" ? <>Tin tức</> : <>News</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/contact" className="nav-link">
+                {language === "VN" ? <>Liên hệ</> : <>Contact</>}
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink to="/product" className="nav-link">
+                {language === "VN" ? <>Cửa hàng</> : <>Shop</>}
+              </NavLink>
+            </li>
+            {logged === true ? (
+              <>
+                {currentUserAuthProvider === true ? (
+                  <>
+                    {provider === true ? (
+                      <>
+                        <li class="nav-item">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#demo"
+                            href="#"
+                          >
+                            <img
+                              src={currentGoogleUserAvatar}
+                              style={{
+                                borderRadius: "50%",
+                                width: "30px",
+                              }}
+                            />
+                          </a>
+                        </li>
+                        <ul
+                          class="navbar-nav collapse d-lg-none ml-4"
+                          id="demo"
+                        >
+                          <li class="nav-item">
+                            <NavLink to="/order-history" className="nav-link">
+                              {language === "VN" ? (
+                                <>Lịch sử đơn hàng</>
+                              ) : (
+                                <>Order History</>
+                              )}
+                            </NavLink>
+                          </li>
+                          <li class="nav-item">
+                            <a
+                              class="nav-link"
+                              onClick={() => HandleLogout()}
+                              href="#"
+                            >
+                              {language === "VN" ? <>Đăng xuất</> : <>Logout</>}
+                            </a>
+                          </li>
+                        </ul>
+                      </>
+                    ) : (
+                      <>
+                        <li class="nav-item">
+                          <a
+                            class="nav-link dropdown-toggle"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#demo"
+                            href="#"
+                          >
+                            <img
+                              src={currentFacebookUserAvatar}
+                              style={{
+                                borderRadius: "50%",
+                                width: "30px",
+                              }}
+                            />
+                          </a>
+                        </li>
+                        <ul
+                          class="navbar-nav collapse d-lg-none ml-4"
+                          id="demo"
+                        >
+                          <li class="nav-item">
+                            <NavLink to="/order-history" className="nav-link">
+                              {language === "VN" ? (
+                                <>Lịch sử đơn hàng</>
+                              ) : (
+                                <>Order History</>
+                              )}
+                            </NavLink>
+                          </li>
+                          <li class="nav-item">
+                            <a
+                              class="nav-link"
+                              onClick={() => HandleLogout()}
+                              href="#"
+                            >
+                              {language === "VN" ? <>Đăng xuất</> : <>Logout</>}
+                            </a>
+                          </li>
+                        </ul>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#demo"
+                        href="#"
+                      >
+                        {currentAvatar === null ||
+                        currentAvatar === "undefined" ? (
+                          <FontAwesomeIcon
+                            style={{ fontSize: "18px" }}
+                            icon={icon({ name: "user" })}
+                          />
+                        ) : (
+                          <img
+                            src={`http://localhost:3434/images/users/${currentAvatar}`}
+                            width="30px"
+                            style={{ borderRadius: "50%" }}
+                          />
+                        )}
+
+                        <span style={{ marginLeft: "8px" }}>
+                          {currentUsername}
+                        </span>
+                      </a>
+                    </li>
+                    <ul class="navbar-nav collapse d-lg-none ml-4" id="demo">
+                      <li class="nav-item">
+                        <NavLink to="/profile" className="nav-link">
+                          {language === "VN" ? (
+                            <>Thông tin của tôi</>
+                          ) : (
+                            <>My Profile</>
+                          )}
+                        </NavLink>
+                      </li>
+                      <li class="nav-item">
+                        <NavLink to="/order-history" className="nav-link">
+                          {language === "VN" ? (
+                            <>Lịch sử đơn hàng</>
+                          ) : (
+                            <>Order History</>
+                          )}
+                        </NavLink>
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          onClick={() => HandleLogout()}
+                          href="#"
+                        >
+                          {language === "VN" ? <>Đăng xuất</> : <>Logout</>}
+                        </a>
+                      </li>
+                    </ul>
+                  </>
+                )}
+              </>
+            ) : (
+              <li class="nav-item">
+                <NavLink to="/login" className="nav-link">
+                  {language === "VN" ? <>Đăng nhập</> : <>Sign in</>}
+                </NavLink>
+              </li>
+            )}
+            <li class="nav-item">
+              <a
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#demo1"
+                href="#"
+              >
+                <FontAwesomeIcon
+                  style={{ fontSize: "18px", marginRight: "5px" }}
+                  icon={icon({ name: "globe" })}
+                />
+                {language === "VN" ? <>Tiếng Việt</> : <>English</>}
+              </a>
+            </li>
+            <ul class="navbar-nav collapse d-lg-none ml-4" id="demo1">
+              <li class="nav-item">
+                <a class="nav-link" onClick={() => HandleChangeLanguage("VN")}>
+                  <img
+                    src="./assets/img/country-logo/vn.svg"
+                    style={{
+                      width: "35px",
+                      height: "25px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  Tiếng Việt
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onClick={() => HandleChangeLanguage("ENG")}>
+                  <img
+                    src="./assets/img/country-logo/eng.svg"
+                    style={{
+                      width: "35px",
+                      height: "25px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  English
+                </a>
+              </li>
+            </ul>
+
+            <li class="nav-item">
+              {theme === "SUN" ? (
+                <a class="nav-link">
+                  <FontAwesomeIcon
+                    style={{ fontSize: "18px" }}
+                    icon={icon({ name: "sun" })}
+                    onClick={() => HandleChangeTheme("MOON")}
+                  />
+                </a>
+              ) : (
+                <a class="nav-link">
+                  <FontAwesomeIcon
+                    style={{ fontSize: "18px" }}
+                    icon={icon({ name: "moon" })}
+                    onClick={() => HandleChangeTheme("SUN")}
+                  />
+                </a>
+              )}
+            </li>
+
+            {logged === true ? (
+              <li class="nav-item">
+                <NavLink to="/cart" className="nav-link">
+                  <i
+                    className="fas fa-shopping-cart shopping-cart"
+                    id="icon_cart"
+                  ></i>
+                  <span className="cart_count">{listCarts.length}</span>
+                </NavLink>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <NavLink to="/cart" className="nav-link">
+                  <i
+                    className="fas fa-shopping-cart shopping-cart"
+                    id="icon_cart"
+                  ></i>
+                </NavLink>
+              </li>
+            )}
+          </ul>
+        </div>
+      </nav>
 
       <Outlet />
     </>
