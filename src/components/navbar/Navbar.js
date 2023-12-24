@@ -107,11 +107,11 @@ const Navbar = () => {
   return (
     <>
       <nav
-        class="navbar navbar-expand-lg navbar-dark fixed-top d-none d-lg-flex justify-content-between "
+        className="navbar navbar-expand-lg navbar-dark fixed-top d-none d-lg-flex justify-content-between "
         style={{ padding: "15px 0", backgroundColor: "#051922" }}
       >
-        <div class="container">
-          <Link to="/" class="navbar-brand">
+        <div className="container">
+          <Link to="/" className="navbar-brand">
             <img
               src="assets/img/logo.png"
               style={{ minWidth: "150px" }}
@@ -120,30 +120,30 @@ const Navbar = () => {
           </Link>
 
           <ul
-            class="navbar-nav d-none d-lg-flex align-self-center nav_mobile"
+            className="navbar-nav d-none d-lg-flex align-self-center nav_mobile"
             style={{ paddingLeft: "125px" }}
           >
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/" className="nav-link">
                 {language === "VN" ? <>Trang chủ</> : <>Home</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/about" className="nav-link">
                 {language === "VN" ? <>Về chúng tôi</> : <>About</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/news" className="nav-link">
                 {language === "VN" ? <>Tin tức</> : <>News</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/contact" className="nav-link">
                 {language === "VN" ? <>Liên hệ</> : <>Contact</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/product" className="nav-link">
                 {language === "VN" ? <>Cửa hàng</> : <>Shop</>}
               </NavLink>
@@ -154,9 +154,9 @@ const Navbar = () => {
                   <>
                     {provider === true ? (
                       <>
-                        <li class="nav-item dropdown">
+                        <li className="nav-item dropdown">
                           <a
-                            class="nav-link dropdown-toggle logo_mobile"
+                            className="nav-link dropdown-toggle logo_mobile"
                             href="#"
                             id="navbardrop"
                             data-bs-toggle="dropdown"
@@ -169,7 +169,7 @@ const Navbar = () => {
                               }}
                             />
                           </a>
-                          <ul class="dropdown-menu">
+                          <ul className="dropdown-menu">
                             <li>
                               <NavLink
                                 to="/order-history"
@@ -184,7 +184,7 @@ const Navbar = () => {
                             </li>
                             <li>
                               <a
-                                class="dropdown-item"
+                                className="dropdown-item"
                                 onClick={() => HandleLogout()}
                                 href="#"
                               >
@@ -200,9 +200,9 @@ const Navbar = () => {
                       </>
                     ) : (
                       <>
-                        <li class="nav-item dropdown">
+                        <li className="nav-item dropdown">
                           <a
-                            class="nav-link dropdown-toggle logo_mobile"
+                            className="nav-link dropdown-toggle logo_mobile"
                             href="#"
                             id="navbardrop"
                             data-bs-toggle="dropdown"
@@ -215,7 +215,7 @@ const Navbar = () => {
                               }}
                             />
                           </a>
-                          <ul class="dropdown-menu">
+                          <ul className="dropdown-menu">
                             <li>
                               <NavLink
                                 to="/order-history"
@@ -229,7 +229,7 @@ const Navbar = () => {
                               </NavLink>
                             </li>
                             <a
-                              class="dropdown-item"
+                              className="dropdown-item"
                               onClick={() => HandleLogout()}
                               href="#"
                             >
@@ -242,9 +242,9 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <li class="nav-item dropdown">
+                    <li className="nav-item dropdown">
                       <a
-                        class="nav-link dropdown-toggle"
+                        className="nav-link dropdown-toggle"
                         href="#"
                         id="navbardrop"
                         data-bs-toggle="dropdown"
@@ -267,7 +267,7 @@ const Navbar = () => {
                           {currentUsername}
                         </span>
                       </a>
-                      <ul class="dropdown-menu">
+                      <ul className="dropdown-menu">
                         <li>
                           <NavLink to="/profile" className="dropdown-item">
                             {language === "VN" ? (
@@ -291,7 +291,7 @@ const Navbar = () => {
                         </li>
                         <li>
                           <a
-                            class="dropdown-item"
+                            className="dropdown-item"
                             onClick={() => HandleLogout()}
                             href="#"
                           >
@@ -304,7 +304,7 @@ const Navbar = () => {
                 )}
               </>
             ) : (
-              <li class="nav-item">
+              <li className="nav-item">
                 <NavLink to="/login" className="nav-link">
                   {language === "VN" ? <>Đăng nhập</> : <>Sign in</>}
                 </NavLink>
@@ -313,12 +313,12 @@ const Navbar = () => {
           </ul>
 
           <ul
-            class="navbar-nav d-none d-lg-flex"
+            className="navbar-nav d-none d-lg-flex"
             style={{ marginRight: "-1px" }}
           >
-            <li class="nav-item dropdown">
+            <li className="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle"
                 href="#"
                 id="navbardrop"
                 role="button"
@@ -330,7 +330,7 @@ const Navbar = () => {
                 />
                 {language === "VN" ? <>Tiếng Việt</> : <>English</>}
               </a>
-              <ul class="dropdown-menu">
+              <ul className="dropdown-menu">
                 <li>
                   <a
                     className="dropdown-item"
@@ -366,9 +366,9 @@ const Navbar = () => {
               </ul>
             </li>
 
-            <li class="nav-item">
+            <li className="nav-item">
               {theme === "SUN" ? (
-                <a class="nav-link">
+                <a className="nav-link">
                   <FontAwesomeIcon
                     style={{ fontSize: "18px" }}
                     icon={icon({ name: "sun" })}
@@ -376,7 +376,7 @@ const Navbar = () => {
                   />
                 </a>
               ) : (
-                <a class="nav-link">
+                <a className="nav-link">
                   <FontAwesomeIcon
                     style={{ fontSize: "18px" }}
                     icon={icon({ name: "moon" })}
@@ -387,7 +387,7 @@ const Navbar = () => {
             </li>
 
             {logged === true ? (
-              <li class="nav-item">
+              <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   <i
                     className="fas fa-shopping-cart shopping-cart"
@@ -397,7 +397,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ) : (
-              <li class="nav-item">
+              <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   <i
                     className="fas fa-shopping-cart shopping-cart"
@@ -411,7 +411,7 @@ const Navbar = () => {
       </nav>
 
       <nav
-        class="navbar navbar-expand-lg d-lg-none navbar-dark justify-content-between fixed-top"
+        className="navbar navbar-expand-lg d-lg-none navbar-dark justify-content-between fixed-top"
         style={{ backgroundColor: "#051922" }}
       >
         <Link to="/" className="navbar-brand">
@@ -419,37 +419,40 @@ const Navbar = () => {
         </Link>
 
         <button
-          class="navbar-toggler d-lg-none"
+          className="navbar-toggler d-lg-none"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#collapsibleNavbar"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse d-lg-none" id="collapsibleNavbar">
-          <ul class="navbar-nav d-lg-none">
-            <li class="nav-item">
+        <div
+          className="collapse navbar-collapse d-lg-none"
+          id="collapsibleNavbar"
+        >
+          <ul className="navbar-nav d-lg-none">
+            <li className="nav-item">
               <NavLink to="/" className="nav-link">
                 {language === "VN" ? <>Trang chủ</> : <>Home</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/about" className="nav-link">
                 {language === "VN" ? <>Về chúng tôi</> : <>About</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/news" className="nav-link">
                 {language === "VN" ? <>Tin tức</> : <>News</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/contact" className="nav-link">
                 {language === "VN" ? <>Liên hệ</> : <>Contact</>}
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink to="/product" className="nav-link">
                 {language === "VN" ? <>Cửa hàng</> : <>Shop</>}
               </NavLink>
@@ -460,9 +463,9 @@ const Navbar = () => {
                   <>
                     {provider === true ? (
                       <>
-                        <li class="nav-item">
+                        <li className="nav-item">
                           <a
-                            class="nav-link dropdown-toggle"
+                            className="nav-link dropdown-toggle"
                             data-bs-toggle="collapse"
                             data-bs-target="#demo"
                             href="#"
@@ -477,10 +480,10 @@ const Navbar = () => {
                           </a>
                         </li>
                         <ul
-                          class="navbar-nav collapse d-lg-none ml-4"
+                          className="navbar-nav collapse d-lg-none ml-4"
                           id="demo"
                         >
-                          <li class="nav-item">
+                          <li className="nav-item">
                             <NavLink to="/order-history" className="nav-link">
                               {language === "VN" ? (
                                 <>Lịch sử đơn hàng</>
@@ -489,9 +492,9 @@ const Navbar = () => {
                               )}
                             </NavLink>
                           </li>
-                          <li class="nav-item">
+                          <li className="nav-item">
                             <a
-                              class="nav-link"
+                              className="nav-link"
                               onClick={() => HandleLogout()}
                               href="#"
                             >
@@ -502,9 +505,9 @@ const Navbar = () => {
                       </>
                     ) : (
                       <>
-                        <li class="nav-item">
+                        <li className="nav-item">
                           <a
-                            class="nav-link dropdown-toggle"
+                            className="nav-link dropdown-toggle"
                             data-bs-toggle="collapse"
                             data-bs-target="#demo"
                             href="#"
@@ -519,10 +522,10 @@ const Navbar = () => {
                           </a>
                         </li>
                         <ul
-                          class="navbar-nav collapse d-lg-none ml-4"
+                          className="navbar-nav collapse d-lg-none ml-4"
                           id="demo"
                         >
-                          <li class="nav-item">
+                          <li className="nav-item">
                             <NavLink to="/order-history" className="nav-link">
                               {language === "VN" ? (
                                 <>Lịch sử đơn hàng</>
@@ -531,9 +534,9 @@ const Navbar = () => {
                               )}
                             </NavLink>
                           </li>
-                          <li class="nav-item">
+                          <li className="nav-item">
                             <a
-                              class="nav-link"
+                              className="nav-link"
                               onClick={() => HandleLogout()}
                               href="#"
                             >
@@ -546,9 +549,9 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <a
-                        class="nav-link dropdown-toggle"
+                        className="nav-link dropdown-toggle"
                         data-bs-toggle="collapse"
                         data-bs-target="#demo"
                         href="#"
@@ -572,8 +575,11 @@ const Navbar = () => {
                         </span>
                       </a>
                     </li>
-                    <ul class="navbar-nav collapse d-lg-none ml-4" id="demo">
-                      <li class="nav-item">
+                    <ul
+                      className="navbar-nav collapse d-lg-none ml-4"
+                      id="demo"
+                    >
+                      <li className="nav-item">
                         <NavLink to="/profile" className="nav-link">
                           {language === "VN" ? (
                             <>Thông tin của tôi</>
@@ -582,7 +588,7 @@ const Navbar = () => {
                           )}
                         </NavLink>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <NavLink to="/order-history" className="nav-link">
                           {language === "VN" ? (
                             <>Lịch sử đơn hàng</>
@@ -591,9 +597,9 @@ const Navbar = () => {
                           )}
                         </NavLink>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <a
-                          class="nav-link"
+                          className="nav-link"
                           onClick={() => HandleLogout()}
                           href="#"
                         >
@@ -605,15 +611,15 @@ const Navbar = () => {
                 )}
               </>
             ) : (
-              <li class="nav-item">
+              <li className="nav-item">
                 <NavLink to="/login" className="nav-link">
                   {language === "VN" ? <>Đăng nhập</> : <>Sign in</>}
                 </NavLink>
               </li>
             )}
-            <li class="nav-item">
+            <li className="nav-item">
               <a
-                class="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle"
                 data-bs-toggle="collapse"
                 data-bs-target="#demo1"
                 href="#"
@@ -625,9 +631,12 @@ const Navbar = () => {
                 {language === "VN" ? <>Tiếng Việt</> : <>English</>}
               </a>
             </li>
-            <ul class="navbar-nav collapse d-lg-none ml-4" id="demo1">
-              <li class="nav-item">
-                <a class="nav-link" onClick={() => HandleChangeLanguage("VN")}>
+            <ul className="navbar-nav collapse d-lg-none ml-4" id="demo1">
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  onClick={() => HandleChangeLanguage("VN")}
+                >
                   <img
                     src="./assets/img/country-logo/vn.svg"
                     style={{
@@ -639,8 +648,11 @@ const Navbar = () => {
                   Tiếng Việt
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" onClick={() => HandleChangeLanguage("ENG")}>
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  onClick={() => HandleChangeLanguage("ENG")}
+                >
                   <img
                     src="./assets/img/country-logo/eng.svg"
                     style={{
@@ -654,9 +666,9 @@ const Navbar = () => {
               </li>
             </ul>
 
-            <li class="nav-item">
+            <li className="nav-item">
               {theme === "SUN" ? (
-                <a class="nav-link">
+                <a className="nav-link">
                   <FontAwesomeIcon
                     style={{ fontSize: "18px" }}
                     icon={icon({ name: "sun" })}
@@ -664,7 +676,7 @@ const Navbar = () => {
                   />
                 </a>
               ) : (
-                <a class="nav-link">
+                <a className="nav-link">
                   <FontAwesomeIcon
                     style={{ fontSize: "18px" }}
                     icon={icon({ name: "moon" })}
@@ -675,7 +687,7 @@ const Navbar = () => {
             </li>
 
             {logged === true ? (
-              <li class="nav-item">
+              <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   <i
                     className="fas fa-shopping-cart shopping-cart"
@@ -685,7 +697,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ) : (
-              <li class="nav-item">
+              <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   <i
                     className="fas fa-shopping-cart shopping-cart"
