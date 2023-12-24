@@ -1,3 +1,7 @@
+# Fruitkha
+
+Fruitkha - Online fruit paradise for those who love fresh flavors and purity. Our website is not only a place for you to choose from delicious and nutritious fruits, but also a source of inspiration for a healthy lifestyle. At Fruitkha, we ensure that each fruit is carefully selected, ensuring the best quality from the orchard directly to you. Fruitkha provides a convenient and safe online shopping experience. You can easily choose between popular fruits or discover delicious fruit specialties from all over the world.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
