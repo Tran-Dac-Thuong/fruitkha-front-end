@@ -419,8 +419,14 @@ const SingleNews = (props) => {
                   <br />
 
                   <div className="comments-list-wrap">
-                    <h3 className="comment-count-title">
-                      {allComments.length} Comments
+                    <h3
+                      className="comment-count-title"
+                      style={{
+                        color: theme === "SUN" ? "#051922" : "white",
+                      }}
+                    >
+                      {allComments.length}{" "}
+                      {language === "VN" ? <>Bình luận</> : <>Comments</>}
                     </h3>
                     {loadingComment === true ? (
                       <>
@@ -438,6 +444,11 @@ const SingleNews = (props) => {
                                           "undefined" ? (
                                           <FontAwesomeIcon
                                             style={{
+                                              color:
+                                                theme === "SUN"
+                                                  ? "#051922"
+                                                  : "white",
+
                                               fontSize: "60px",
                                             }}
                                             icon={icon({ name: "user" })}
@@ -457,7 +468,14 @@ const SingleNews = (props) => {
                                         )}
                                       </div>
                                       <div className="comment-text-body">
-                                        <h4>
+                                        <h4
+                                          style={{
+                                            color:
+                                              theme === "SUN"
+                                                ? "#051922"
+                                                : "white",
+                                          }}
+                                        >
                                           {item.userCommentData.first_name}{" "}
                                           {item.userCommentData.last_name}{" "}
                                           <span className="comment-date">
@@ -509,7 +527,17 @@ const SingleNews = (props) => {
                                 );
                               })
                           ) : (
-                            <h3>No comments found</h3>
+                            <h3
+                              style={{
+                                color: theme === "SUN" ? "#051922" : "white",
+                              }}
+                            >
+                              {language === "VN" ? (
+                                <>Không tìm thấy bình luận nào</>
+                              ) : (
+                                <>No comments found</>
+                              )}
+                            </h3>
                           )}
                         </div>
                         {visibleItems < allComments.length &&
@@ -520,11 +548,18 @@ const SingleNews = (props) => {
                             />
                           ) : (
                             <h5
-                              style={{ cursor: "pointer" }}
+                              style={{
+                                cursor: "pointer",
+                                color: theme === "SUN" ? "#051922" : "white",
+                              }}
                               className="comment-count-title"
                               onClick={loadMoreHandler}
                             >
-                              Load More
+                              {language === "VN" ? (
+                                <>Tải thêm</>
+                              ) : (
+                                <>Load More</>
+                              )}
                             </h5>
                           ))}
                       </>
@@ -536,10 +571,33 @@ const SingleNews = (props) => {
                   </div>
 
                   <div className="comment-template">
-                    <h4>Leave a comment</h4>
-                    <p>
-                      If you have a comment dont feel hesitate to send us your
-                      opinion.
+                    <h4
+                      style={{
+                        color: theme === "SUN" ? "#051922" : "white",
+                      }}
+                    >
+                      {language === "VN" ? (
+                        <>Để lại một bình luận</>
+                      ) : (
+                        <>Leave a comment</>
+                      )}
+                    </h4>
+                    <p
+                      style={{
+                        color: theme === "SUN" ? "#051922" : "white",
+                      }}
+                    >
+                      {language === "VN" ? (
+                        <>
+                          Nếu bạn có một bình luận, đừng ngần ngại gửi cho chúng
+                          tôi ý kiến ​​của bạn.
+                        </>
+                      ) : (
+                        <>
+                          If you have a comment dont feel hesitate to send us
+                          your opinion.
+                        </>
+                      )}
                     </p>
                     <form>
                       <p>
@@ -550,20 +608,24 @@ const SingleNews = (props) => {
                           rows="10"
                           value={comment}
                           onChange={(event) => setComment(event.target.value)}
-                          placeholder="Your Message"
+                          placeholder={
+                            language === "VN"
+                              ? "Tin nhắn của bạn"
+                              : "Your Message"
+                          }
                         ></textarea>
                       </p>
                       <p>
                         {HandleShowHideValidate() ? (
                           <input
                             type="button"
-                            value="Submit"
+                            value={language === "VN" ? "Gửi" : "Submit"}
                             onClick={HandleSendComment}
                           />
                         ) : (
                           <input
                             type="button"
-                            value="Submit"
+                            value={language === "VN" ? "Gửi" : "Submit"}
                             style={{
                               backgroundColor: "#ffd699",
                               color: "#999999",

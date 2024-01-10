@@ -2,21 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import isEmpty from "validator/lib/isEmpty";
 import isEmail from "validator/lib/isEmail";
-import { toast } from "react-toastify";
-import { Cookies } from "react-cookie";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useGoogleLogin } from "@react-oauth/google";
+import { Cookies } from "react-cookie";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 
-const Login = () => {
+const Register = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [cpassword, setCPassword] = useState("");
+  const [authProvider, setAuthProvider] = useState("LOCAL");
   const [validate, setValidate] = useState("");
+  const [showHidePassword, setShowHidePassword] = useState(false);
+  const [showHideConfirmPassword, setShowHideConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,7 +44,7 @@ const Login = () => {
           window.location.reload();
         }
       } else {
-        navigate("/login");
+        navigate("/register");
       }
     };
     checkVerify();
@@ -137,12 +142,20 @@ const Login = () => {
   const HandleValidate = () => {
     let msg = {};
 
+    if (isEmpty(firstName)) {
+      msg.firstName = "Firstname is required!";
+      msg.firstNameVn = "Họ là bắt buộc!";
+    }
+    if (isEmpty(lastName)) {
+      msg.lastName = "Lastname is required!";
+      msg.lastNameVn = "Tên là bắt buộc!";
+    }
     if (isEmpty(email)) {
       msg.email = "Email is required!";
       msg.emailVn = "Email là bắt buộc!";
     } else if (!isEmail(email)) {
-      msg.email = "Invalid email";
-      msg.emailVn = "Email không hợp lệ";
+      msg.email = "Invalid email!";
+      msg.emailVn = "Email không hợp lệ!";
     }
     if (isEmpty(password)) {
       msg.password = "Password is required!";
@@ -150,6 +163,13 @@ const Login = () => {
     } else if (password.length < 8 || password.length > 12) {
       msg.password = "Password must have 8-12 characters";
       msg.passwordVn = "Mật khẩu phải có từ 8 đến 12 ký tự";
+    }
+    if (isEmpty(cpassword)) {
+      msg.cpassword = "Please confirm your password!";
+      msg.cpasswordVn = "Vui lòng xác nhận mật khẩu của bạn!";
+    } else if (cpassword !== password) {
+      msg.cpassword = "Password doesn't match!";
+      msg.cpasswordVn = "Mật khẩu không khớp!";
     }
 
     setValidate(msg);
@@ -160,42 +180,29 @@ const Login = () => {
     }
   };
 
-  const HandleLogin = async () => {
+  const HandleRegister = async () => {
     let isValid = HandleValidate();
 
     if (!isValid) {
       return;
     }
 
-    let response = await axios.post("http://localhost:3434/api/login-user", {
+    let response = await axios.post("http://localhost:3434/api/register-user", {
+      firstName,
+      lastName,
       email,
       password,
+      authProvider,
     });
-    console.log("check res: ", response);
     if (response && response.data.errCode !== 0) {
       toast.error(
-        language === "VN"
-          ? "Email hoặc mật khẩu không hợp lệ"
-          : response.data.message
+        language === "VN" ? "Email đã tồn tại" : response.data.message
       );
     } else {
-      if (response.data.currentUser.role === "CUSTOMER") {
-        let cookie = new Cookies();
-
-        cookie.set("token", response.data.token, {
-          path: "/",
-        });
-        navigate("/");
-        window.location.reload();
-      } else {
-        let cookie = new Cookies();
-
-        cookie.set("token", response.data.token, {
-          path: "/",
-        });
-        navigate("/admin/dashboard");
-        window.location.reload();
-      }
+      navigate("/login");
+      toast.success(
+        language === "VN" ? "Đăng ký thành công" : "Register success"
+      );
     }
   };
 
@@ -205,14 +212,14 @@ const Login = () => {
   };
 
   const HandleEnter = async (e) => {
-    if (e.key === "Enter") await HandleLogin();
+    if (e.key === "Enter") await HandleRegister();
   };
 
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{language === "VN" ? `Đăng nhập` : `Login`}</title>
+        <title>{language === "VN" ? `Đăng ký` : `Register`}</title>
       </Helmet>
       <div className="container-login">
         <div className="row justify-content-center">
@@ -235,14 +242,57 @@ const Login = () => {
                         }}
                         icon={icon({ name: "arrow-left" })}
                       />
-
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">
-                          {language === "VN" ? <>Đăng nhập</> : <>Login</>}
+                          {language === "VN" ? <>Đăng ký</> : <>Register</>}
                         </h1>
                       </div>
 
                       <form className="user">
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={firstName}
+                            onChange={(event) =>
+                              setFirstName(event.target.value)
+                            }
+                            id=""
+                            aria-describedby=""
+                            placeholder={
+                              language === "VN"
+                                ? "Nhập họ..."
+                                : "Enter Firstname..."
+                            }
+                          />
+                          <span className="text-danger msg">
+                            {language === "VN"
+                              ? validate.firstNameVn
+                              : validate.firstName}
+                          </span>
+                        </div>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={lastName}
+                            onChange={(event) =>
+                              setLastName(event.target.value)
+                            }
+                            id=""
+                            aria-describedby=""
+                            placeholder={
+                              language === "VN"
+                                ? "Nhập tên..."
+                                : "Enter Lastname..."
+                            }
+                          />
+                          <span className="text-danger msg">
+                            {language === "VN"
+                              ? validate.lastNameVn
+                              : validate.lastName}
+                          </span>
+                        </div>
                         <div className="form-group">
                           <input
                             type="email"
@@ -263,15 +313,19 @@ const Login = () => {
                               : validate.email}
                           </span>
                         </div>
-                        <div className="form-group">
+                        <div
+                          className="form-group"
+                          style={{ position: "relative" }}
+                        >
                           <input
-                            type="password"
+                            type={
+                              showHidePassword === false ? "password" : "text"
+                            }
                             className="form-control"
                             value={password}
                             onChange={(event) =>
                               setPassword(event.target.value)
                             }
-                            onKeyDown={(e) => HandleEnter(e)}
                             id="exampleInputPassword"
                             placeholder={
                               language === "VN"
@@ -279,35 +333,121 @@ const Login = () => {
                                 : "Password..."
                             }
                           />
-                          <span className="text-danger msg">
+                          {showHidePassword === false ? (
+                            <FontAwesomeIcon
+                              style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                cursor: "pointer",
+                              }}
+                              icon={icon({
+                                name: "eye",
+                              })}
+                              onClick={() =>
+                                setShowHidePassword(!showHidePassword)
+                              }
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                cursor: "pointer",
+                              }}
+                              icon={icon({
+                                name: "eye-slash",
+                              })}
+                              onClick={() =>
+                                setShowHidePassword(!showHidePassword)
+                              }
+                            />
+                          )}
+                          <span
+                            className="text-danger msg"
+                            style={{ userSelect: "none" }}
+                          >
                             {language === "VN"
                               ? validate.passwordVn
                               : validate.password}
                           </span>
                         </div>
-                        <div className="form-group">
-                          <div
-                            className="custom-control custom-checkbox small"
-                            style={{ lineHeight: "1.5rem" }}
+
+                        <div
+                          className="form-group"
+                          style={{ position: "relative" }}
+                        >
+                          <input
+                            type={
+                              showHideConfirmPassword === false
+                                ? "password"
+                                : "text"
+                            }
+                            className="form-control"
+                            value={cpassword}
+                            onChange={(event) =>
+                              setCPassword(event.target.value)
+                            }
+                            onKeyDown={(e) => HandleEnter(e)}
+                            id="exampleInputPassword"
+                            placeholder={
+                              language === "VN"
+                                ? "Xác nhận mật khẩu..."
+                                : "Confirm Password..."
+                            }
+                          />
+                          {showHideConfirmPassword === false ? (
+                            <FontAwesomeIcon
+                              style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                cursor: "pointer",
+                              }}
+                              icon={icon({
+                                name: "eye",
+                              })}
+                              onClick={() =>
+                                setShowHideConfirmPassword(
+                                  !showHideConfirmPassword
+                                )
+                              }
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                cursor: "pointer",
+                              }}
+                              icon={icon({
+                                name: "eye-slash",
+                              })}
+                              onClick={() =>
+                                setShowHideConfirmPassword(
+                                  !showHideConfirmPassword
+                                )
+                              }
+                            />
+                          )}
+                          <span
+                            className="text-danger msg"
+                            style={{ userSelect: "none" }}
                           >
-                            <Link
-                              to="/forgot-password"
-                              style={{ fontSize: "12px", marginLeft: "-20px" }}
-                            >
-                              {language === "VN" ? (
-                                <>Quên mật khẩu?</>
-                              ) : (
-                                <>Forgot password?</>
-                              )}
-                            </Link>
-                          </div>
+                            {language === "VN"
+                              ? validate.cpasswordVn
+                              : validate.cpassword}
+                          </span>
                         </div>
+
                         <div className="form-group">
                           <div
-                            onClick={HandleLogin}
+                            onClick={HandleRegister}
                             className="btn btn-primary btn-block"
                           >
-                            {language === "VN" ? <>Đăng nhập</> : <>Login</>}
+                            {language === "VN" ? <>Đăng ký</> : <>Register</>}
                           </div>
                         </div>
                         <hr />
@@ -332,7 +472,6 @@ const Login = () => {
                             <>Login with Google</>
                           )}
                         </a>
-
                         <LoginSocialFacebook
                           appId="1194828094562604"
                           scope="public_profile email"
@@ -352,7 +491,6 @@ const Login = () => {
                             );
                             navigate("/");
                             window.location.reload();
-                            console.log(response);
                           }}
                           onReject={(error) => {
                             console.log(error);
@@ -377,12 +515,8 @@ const Login = () => {
                       </form>
                       <hr />
                       <div className="text-center">
-                        <Link className="font-weight-bold small" to="/register">
-                          {language === "VN" ? (
-                            <>Tạo một tài khoản!</>
-                          ) : (
-                            <>Create an Account!</>
-                          )}
+                        <Link className="font-weight-bold small" to="/login">
+                          {language === "VN" ? <>Đăng nhập!</> : <>Sign In!</>}
                         </Link>
                       </div>
                       <div className="text-center"></div>
@@ -398,4 +532,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

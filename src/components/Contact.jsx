@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Footer from "./footer/Footer";
 import CheckCookie from "./Auth/CheckCookie";
 import "./Contact.scss";
@@ -14,6 +14,7 @@ const Contact = (props) => {
   const [contactSubject, setContactSubject] = useState("");
   const [contactMessage, setContactMessage] = useState("");
   const [validate, setValidate] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const language = useSelector((state) => state.language.language);
   const theme = useSelector((state) => state.theme.theme);
@@ -63,49 +64,54 @@ const Contact = (props) => {
   };
 
   const HandleSubmitContact = async () => {
-    let isValid = HandleValidate();
+    startTransition(async () => {
+      let isValid = HandleValidate();
 
-    if (!isValid) {
-      return;
-    }
+      if (!isValid) {
+        return;
+      }
 
-    let timestamp = Date.now();
+      let timestamp = Date.now();
 
-    let date = new Date(timestamp);
+      let date = new Date(timestamp);
 
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
 
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      let seconds = date.getSeconds();
 
-    let contactCreateAt = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+      let contactCreateAt = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 
-    let response = await axios.post("http://localhost:3434/api/send-contact", {
-      contactName,
-      contactEmail,
-      contactSubject,
-      contactMessage,
-      contactPhone,
-      contactCreateAt,
-    });
-    if (response && response.data.message === "Submit success") {
-      setContactName("");
-      setContactEmail("");
-      setContactSubject("");
-      setContactMessage("");
-      setContactPhone("");
-
-      toast.success(
-        language === "VN"
-          ? "Bạn đã gửi câu hỏi thành công. Chúng tôi sẽ liên hệ với bạn qua mail ngay khi có thể"
-          : "You have successfully submitted your question. We will contact you via email as soon as possible"
+      let response = await axios.post(
+        "http://localhost:3434/api/send-contact",
+        {
+          contactName,
+          contactEmail,
+          contactSubject,
+          contactMessage,
+          contactPhone,
+          contactCreateAt,
+        }
       );
-    } else {
-      toast.error(language === "VN" ? "Gửi không thành công" : "Submit fail");
-    }
+      if (response && response.data.message === "Submit success") {
+        setContactName("");
+        setContactEmail("");
+        setContactSubject("");
+        setContactMessage("");
+        setContactPhone("");
+
+        toast.success(
+          language === "VN"
+            ? "Bạn đã gửi câu hỏi thành công. Chúng tôi sẽ liên hệ với bạn qua mail ngay khi có thể"
+            : "You have successfully submitted your question. We will contact you via email as soon as possible"
+        );
+      } else {
+        toast.error(language === "VN" ? "Gửi không thành công" : "Submit fail");
+      }
+    });
   };
 
   const HandleEnter = async (e) => {
@@ -249,11 +255,23 @@ const Contact = (props) => {
                     </span>
                   </p>
                   <p>
-                    <input
-                      type="button"
-                      onClick={HandleSubmitContact}
-                      value={language === "VN" ? "Gửi" : "Submit"}
-                    />
+                    {isPending ? (
+                      <input
+                        type="button"
+                        value={language === "VN" ? "Gửi" : "Submit"}
+                        style={{
+                          backgroundColor: "#ffd699",
+                          color: "#999999",
+                          cursor: "not-allowed",
+                        }}
+                      />
+                    ) : (
+                      <input
+                        type="button"
+                        onClick={HandleSubmitContact}
+                        value={language === "VN" ? "Gửi" : "Submit"}
+                      />
+                    )}
                   </p>
                 </form>
               </div>
