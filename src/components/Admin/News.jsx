@@ -295,6 +295,8 @@ const News = () => {
     );
     if (res && res.data.message === "OK") {
       setAllNews(res.data.search_news);
+    } else if (res && res.data.message === "Fail") {
+      setNewsEmpty(true);
     }
   };
 

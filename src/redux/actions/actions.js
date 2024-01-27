@@ -20,7 +20,7 @@ export const fetchCurrentUser = (userId) => {
     dispatch(fetchCurrentUserRequest);
     try {
       let res = await axios.get(
-        `http://localhost:3434/api/get-current-user/${userId}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/get-current-user/${userId}`
       );
       if (res && res.data.message === "OK") {
         console.log("check current user: ", res.data.currentUser);
@@ -56,11 +56,14 @@ export const addToCart = (currentUserId, productId, quantity) => {
   return async (dispatch, getState) => {
     dispatch(addtoCartRequest());
     try {
-      let res = await axios.post(`http://localhost:3434/api/add-to-cart/`, {
-        productId: productId,
-        userId: currentUserId,
-        newQuantity: quantity,
-      });
+      let res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/add-to-cart/`,
+        {
+          productId: productId,
+          userId: currentUserId,
+          newQuantity: quantity,
+        }
+      );
       if (res && res.data.message === "OK") {
         dispatch(addtoCartSuccess());
         dispatch(fetchCartItems(currentUserId));
@@ -109,7 +112,7 @@ export const fetchCartItems = (currentUserId) => {
     dispatch(fetchCartItemsRequest);
     try {
       let res = await axios.get(
-        `http://localhost:3434/api/get-cart-items/${
+        `${process.env.REACT_APP_BACKEND_URL}/api/get-cart-items/${
           currentUserId ? currentUserId : 0
         }`
       );
@@ -127,7 +130,7 @@ export const removeFromCart = (cartId, currentUserId) => {
   return async (dispatch, getState) => {
     try {
       let res = await axios.delete(
-        `http://localhost:3434/api/remove-from-cart/${cartId}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/remove-from-cart/${cartId}`
       );
       if (res && res.data.message === "Remove success") {
         dispatch(deleteCartItemsSuccess());
