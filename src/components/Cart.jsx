@@ -38,11 +38,14 @@ const Cart = (props) => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           navigate("/cart");
@@ -223,7 +226,7 @@ const Cart = (props) => {
                                       </td>
                                       <td className="product-image">
                                         <img
-                                          src={`http://localhost:3434/images/fruits/${item.productCartData.image}`}
+                                          src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${item.productCartData.image}`}
                                           alt=""
                                         />
                                       </td>

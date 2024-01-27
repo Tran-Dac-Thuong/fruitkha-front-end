@@ -30,11 +30,14 @@ const Register = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           navigate("/");
@@ -92,7 +95,7 @@ const Register = () => {
     avatar
   ) => {
     let register_res = await axios.post(
-      "http://localhost:3434/api/register-user",
+      `${process.env.REACT_APP_BACKEND_URL}/api/register-user`,
       {
         firstName,
         lastName,
@@ -105,10 +108,13 @@ const Register = () => {
   };
 
   const LoginWithGoogleAndFacebook = async (email, password) => {
-    let login_res = await axios.post("http://localhost:3434/api/login-user", {
-      email,
-      password,
-    });
+    let login_res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/login-user`,
+      {
+        email,
+        password,
+      }
+    );
     if (login_res && login_res.data.errCode === 0) {
       let cookie = new Cookies();
 
@@ -127,7 +133,7 @@ const Register = () => {
     avatar
   ) => {
     let register_res = await axios.post(
-      "http://localhost:3434/api/register-user",
+      `${process.env.REACT_APP_BACKEND_URL}/api/register-user`,
       {
         firstName,
         lastName,
@@ -187,13 +193,16 @@ const Register = () => {
       return;
     }
 
-    let response = await axios.post("http://localhost:3434/api/register-user", {
-      firstName,
-      lastName,
-      email,
-      password,
-      authProvider,
-    });
+    let response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/register-user`,
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+        authProvider,
+      }
+    );
     if (response && response.data.errCode !== 0) {
       toast.error(
         language === "VN" ? "Email đã tồn tại" : response.data.message
@@ -473,7 +482,7 @@ const Register = () => {
                           )}
                         </a>
                         <LoginSocialFacebook
-                          appId="1194828094562604"
+                          appId={process.env.REACT_FACEBOOK_APP_ID}
                           scope="public_profile email"
                           onResolve={async (response) => {
                             await AddFacebookInfo(

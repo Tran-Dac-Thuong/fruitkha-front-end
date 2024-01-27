@@ -21,11 +21,14 @@ const ForgotPassword = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           navigate("/");
@@ -68,7 +71,7 @@ const ForgotPassword = () => {
     }
 
     let response = await axios.post(
-      "http://localhost:3434/api/forgot-password",
+      `${process.env.REACT_APP_BACKEND_URL}/api/forgot-password`,
       {
         email,
       }

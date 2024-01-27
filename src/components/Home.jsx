@@ -157,7 +157,9 @@ const Home = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get("http://localhost:3434/api/some-news");
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/some-news`
+      );
       if (res.data.someNews) {
         setSomeNews(res.data.someNews);
         setLoadingSomeNews(true);
@@ -170,7 +172,9 @@ const Home = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get("http://localhost:3434/api/products");
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/products`
+      );
       if (res.data.products) {
         setAllProducts(res.data.products);
         setLoadingHomeProducts(true);
@@ -364,7 +368,7 @@ const Home = (props) => {
                                 <div className="product-image">
                                   <Link to={`/product/${item.id}`}>
                                     <img
-                                      src={`http://localhost:3434/images/fruits/${item.image}`}
+                                      src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${item.image}`}
                                       alt=""
                                     />
                                   </Link>
@@ -862,7 +866,8 @@ const Home = (props) => {
                               <Link to={`/news/${item.id}`}>
                                 <div className="news-bg-1">
                                   <img
-                                    src={`http://localhost:3434/images/news/${item.image}`}
+                                    src={`${process.env.REACT_APP_BACKEND_URL}/images/news/${item.image}`}
+                                    alt=""
                                   />
                                 </div>
                               </Link>

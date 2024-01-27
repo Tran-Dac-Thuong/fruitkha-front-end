@@ -33,11 +33,14 @@ const Orders = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "ADMIN") {
           setCurrentAdmin(verify.data.username);
@@ -59,7 +62,7 @@ const Orders = () => {
 
   const FetchDataOrders = async (page) => {
     let res = await axios.get(
-      `http://localhost:3434/api/orders?page=${
+      `${process.env.REACT_APP_BACKEND_URL}/api/orders?page=${
         page ? page : currentPage
       }&limit=${currentLimit}`
     );
@@ -76,7 +79,9 @@ const Orders = () => {
   };
 
   const HandleAdminLogout = async () => {
-    let logout = await axios.get("http://localhost:3434/api/logout");
+    let logout = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+    );
     if (logout.data.errCode === 0) {
       let cookie = new Cookies();
 
@@ -102,7 +107,7 @@ const Orders = () => {
     let dateKeywordFormat = `${ngayFormatted}-${thangFormatted}-${namFormatted}`;
 
     let res = await axios.post(
-      "http://localhost:3434/api/search-orders-by-date",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-orders-by-date`,
       { dateKeywordFormat }
     );
     if (res && res.data.message === "OK") {
@@ -126,10 +131,13 @@ const Orders = () => {
 
   const HandleUpdateStatusOrder = async () => {
     let status = "Complete shipping";
-    await axios.put("http://localhost:3434/api/update-status-order", {
-      status,
-      id,
-    });
+    await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/update-status-order`,
+      {
+        status,
+        id,
+      }
+    );
     setShowStatusModal(false);
     setStatus("Update Status");
     toast.success("Update status success");
@@ -244,12 +252,14 @@ const Orders = () => {
                                           src="./assets/img/paypal.png"
                                           style={{ borderRadius: "3px" }}
                                           width="40px"
+                                          alt=""
                                         />
                                       ) : (
                                         <img
                                           src="./assets/img/momo.png"
                                           style={{ borderRadius: "3px" }}
                                           width="40px"
+                                          alt=""
                                         />
                                       )}
                                     </td>

@@ -50,7 +50,7 @@ const ResetPassword = () => {
       return;
     }
     let response = await axios.post(
-      `http://localhost:3434/api/reset-password/${id}/${token}`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/reset-password/${id}/${token}`,
       {
         password,
       }

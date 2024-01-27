@@ -26,7 +26,7 @@ const SidebarAdmin = (props) => {
           to="/admin/dashboard"
         >
           <div className="sidebar-brand-icon">
-            <img src="./assets/img/logo/logo2.png" />
+            <img src="./assets/img/logo/logo2.png" alt="" />
           </div>
           <div className="sidebar-brand-text mx-3">RuangAdmin</div>
         </Link>

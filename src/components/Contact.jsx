@@ -86,7 +86,7 @@ const Contact = (props) => {
       let contactCreateAt = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 
       let response = await axios.post(
-        "http://localhost:3434/api/send-contact",
+        `${process.env.REACT_APP_BACKEND_URL}/api/send-contact`,
         {
           contactName,
           contactEmail,

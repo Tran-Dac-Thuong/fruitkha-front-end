@@ -11,7 +11,8 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "YOUR_API_KEY";
+const API_KEY = process.env.CHATGPT_API_KEY;
+
 // "Explain things like you would to a 10 year old learning how to code."
 // const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
 //   "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."

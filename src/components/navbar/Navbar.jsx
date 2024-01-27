@@ -39,11 +39,14 @@ const Navbar = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         setStatus("Read");
         if (verify.data.auth_provider === "GOOGLE") {
@@ -85,7 +88,9 @@ const Navbar = () => {
   };
 
   const HandleLogout = async () => {
-    let logout = await axios.get("http://localhost:3434/api/logout");
+    let logout = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+    );
     if (logout.data.errCode === 0) {
       let cookie = new Cookies();
       cookie.remove("token");
@@ -167,6 +172,7 @@ const Navbar = () => {
                                 borderRadius: "50%",
                                 width: "30px",
                               }}
+                              alt=""
                             />
                           </a>
                           <ul className="dropdown-menu">
@@ -213,6 +219,7 @@ const Navbar = () => {
                                 borderRadius: "50%",
                                 width: "30px",
                               }}
+                              alt=""
                             />
                           </a>
                           <ul className="dropdown-menu">
@@ -257,9 +264,10 @@ const Navbar = () => {
                           />
                         ) : (
                           <img
-                            src={`http://localhost:3434/images/users/${currentAvatar}`}
+                            src={`${process.env.REACT_APP_BACKEND_URL}/images/users/${currentAvatar}`}
                             width="30px"
                             style={{ borderRadius: "50%" }}
+                            alt=""
                           />
                         )}
 
@@ -343,6 +351,7 @@ const Navbar = () => {
                         height: "25px",
                         marginRight: "5px",
                       }}
+                      alt=""
                     />
                     Tiếng Việt
                   </a>
@@ -359,6 +368,7 @@ const Navbar = () => {
                         height: "25px",
                         marginRight: "5px",
                       }}
+                      alt=""
                     />
                     English
                   </a>
@@ -476,6 +486,7 @@ const Navbar = () => {
                                 borderRadius: "50%",
                                 width: "30px",
                               }}
+                              alt=""
                             />
                           </a>
                         </li>
@@ -518,6 +529,7 @@ const Navbar = () => {
                                 borderRadius: "50%",
                                 width: "30px",
                               }}
+                              alt=""
                             />
                           </a>
                         </li>
@@ -564,9 +576,10 @@ const Navbar = () => {
                           />
                         ) : (
                           <img
-                            src={`http://localhost:3434/images/users/${currentAvatar}`}
+                            src={`${process.env.REACT_APP_BACKEND_URL}/images/users/${currentAvatar}`}
                             width="30px"
                             style={{ borderRadius: "50%" }}
+                            alt=""
                           />
                         )}
 
@@ -644,6 +657,7 @@ const Navbar = () => {
                       height: "25px",
                       marginRight: "5px",
                     }}
+                    alt=""
                   />
                   Tiếng Việt
                 </a>
@@ -660,6 +674,7 @@ const Navbar = () => {
                       height: "25px",
                       marginRight: "5px",
                     }}
+                    alt=""
                   />
                   English
                 </a>

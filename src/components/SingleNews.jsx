@@ -52,11 +52,14 @@ const SingleNews = (props) => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           navigate(`/news/${id}`);
@@ -75,7 +78,9 @@ const SingleNews = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get(`http://localhost:3434/api/news/${id}`);
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/news/${id}`
+      );
 
       if (res && res.data) {
         setDetailNews(res.data.news);
@@ -90,7 +95,9 @@ const SingleNews = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get(`http://localhost:3434/api/recent-news`);
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/recent-news`
+      );
 
       if (res && res.data) {
         setRecentNews(res.data.recentNews);
@@ -104,7 +111,7 @@ const SingleNews = (props) => {
   useEffect(() => {
     async function fetchData() {
       let res = await axios.get(
-        `http://localhost:3434/api/get-all-comments/${id}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/get-all-comments/${id}`
       );
 
       if (res && res.data.message === "OK") {
@@ -141,12 +148,15 @@ const SingleNews = (props) => {
 
       let formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 
-      let res = await axios.post("http://localhost:3434/api/send-comment", {
-        userId: currentUser.id,
-        newsId: id,
-        comment: comment,
-        created_at: formattedDate,
-      });
+      let res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/send-comment`,
+        {
+          userId: currentUser.id,
+          newsId: id,
+          comment: comment,
+          created_at: formattedDate,
+        }
+      );
       if (res && res.data.message === "OK") {
         setComment("");
         setStatusComment("Comment");
@@ -191,10 +201,13 @@ const SingleNews = (props) => {
   };
 
   const HandleEditComment = async () => {
-    let res = await axios.put("http://localhost:3434/api/update-comment", {
-      editContent,
-      commentId,
-    });
+    let res = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/update-comment`,
+      {
+        editContent,
+        commentId,
+      }
+    );
     if (res && res.data.message === "Update success") {
       setCommentEditModal(false);
       setStatusComment("Update Comment");
@@ -209,7 +222,9 @@ const SingleNews = (props) => {
   };
 
   const HandleDeleteComment = async () => {
-    await axios.delete(`http://localhost:3434/api/delete-comment/${commentId}`);
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/delete-comment/${commentId}`
+    );
 
     setCommentDeleteModal(false);
     setStatusComment("Delete Comment");
@@ -371,8 +386,9 @@ const SingleNews = (props) => {
                       <div className="single-article-text">
                         <div className="">
                           <img
+                            alt=""
                             className="news_img"
-                            src={`http://localhost:3434/images/news/${detailNews.image}`}
+                            src={`${process.env.REACT_APP_BACKEND_URL}/images/news/${detailNews.image}`}
                           />
                         </div>
                         <p className="blog-meta">
@@ -461,7 +477,7 @@ const SingleNews = (props) => {
                                               item.userCommentData
                                                 .auth_provider === "FACEBOOK"
                                                 ? item.userCommentData.avatar
-                                                : `http://localhost:3434/images/users/${item.userCommentData.avatar}`
+                                                : `${process.env.REACT_APP_BACKEND_URL}/images/users/${item.userCommentData.avatar}`
                                             }
                                             alt=""
                                           />

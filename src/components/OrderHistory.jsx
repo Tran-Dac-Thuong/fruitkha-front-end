@@ -33,11 +33,14 @@ const OrderHistory = (props) => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           navigate("/order-history");
@@ -55,7 +58,7 @@ const OrderHistory = (props) => {
   useEffect(() => {
     async function fetchData() {
       let res = await axios.get(
-        `http://localhost:3434/api/get-orders-by-user/${currentUser.id}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/get-orders-by-user/${currentUser.id}`
       );
       if (res && res.data.message === "OK") {
         setAllOrders(res.data.orders);
@@ -220,12 +223,14 @@ const OrderHistory = (props) => {
                                     src="./admin/assets/img/paypal.png"
                                     style={{ borderRadius: "3px" }}
                                     width="40px"
+                                    alt=""
                                   />
                                 ) : (
                                   <img
                                     src="./admin/assets/img/momo.png"
                                     style={{ borderRadius: "3px" }}
                                     width="40px"
+                                    alt=""
                                   />
                                 )}
                               </td>

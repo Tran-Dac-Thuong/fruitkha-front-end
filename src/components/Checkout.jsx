@@ -54,11 +54,14 @@ const Checkout = (props) => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           navigate("/checkout");
@@ -228,7 +231,10 @@ const Checkout = (props) => {
         paymentMethod: "PAYPAL",
       };
 
-      await axios.post("http://localhost:3434/api/place-order", newOrder);
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/place-order`,
+        newOrder
+      );
 
       dispatch(removeFromCart(carts.id, carts.user_id));
     }
@@ -262,16 +268,22 @@ const Checkout = (props) => {
         paymentMethod: "MOMO",
       };
 
-      await axios.post("http://localhost:3434/api/place-order", newOrder);
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/place-order`,
+        newOrder
+      );
 
       dispatch(removeFromCart(carts.id, carts.user_id));
     }
   };
 
   const HandlePaymentMomo = async () => {
-    let res = await axios.post("http://localhost:3434/api/payment-momo", {
-      cost: total * 24000,
-    });
+    let res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/payment-momo`,
+      {
+        cost: total * 24000,
+      }
+    );
     console.log("check momo: ", res);
     if (res && res.data.message === "OK") {
       window.location.href = res.data.payUrl;
@@ -708,6 +720,7 @@ const Checkout = (props) => {
                               <>
                                 {" "}
                                 <img
+                                  alt=""
                                   src="../payment/paypal-btn.png"
                                   style={{
                                     minWidth: "385px",
@@ -721,6 +734,7 @@ const Checkout = (props) => {
                               <>
                                 {" "}
                                 <img
+                                  alt=""
                                   src="../payment/paypal-btn-removebg.png"
                                   style={{
                                     minWidth: "385px",

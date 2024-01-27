@@ -40,11 +40,14 @@ const Contacts = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "ADMIN") {
           setCurrentAdmin(verify.data.username);
@@ -66,7 +69,7 @@ const Contacts = () => {
 
   const FetchDataContacts = async (page) => {
     let res = await axios.get(
-      `http://localhost:3434/api/contacts?page=${
+      `${process.env.REACT_APP_BACKEND_URL}/api/contacts?page=${
         page ? page : currentPage
       }&limit=${currentLimit}`
     );
@@ -105,7 +108,9 @@ const Contacts = () => {
   const HandleDeleteContact = async () => {
     let oldLength = allContact.length;
 
-    await axios.delete(`http://localhost:3434/api/delete-contact/${id}`);
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/delete-contact/${id}`
+    );
 
     if (oldLength - 1 === 0) {
       setAllContact([]);
@@ -140,11 +145,14 @@ const Contacts = () => {
 
     setLoading(true);
 
-    let response = await axios.post("http://localhost:3434/api/send-email", {
-      cusEmail,
-      cusName,
-      answer,
-    });
+    let response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/send-email`,
+      {
+        cusEmail,
+        cusName,
+        answer,
+      }
+    );
 
     if (response && response.data.message === "Send success") {
       setTimeout(() => {
@@ -161,7 +169,9 @@ const Contacts = () => {
   };
 
   const HandleAdminLogout = async () => {
-    let logout = await axios.get("http://localhost:3434/api/logout");
+    let logout = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+    );
     if (logout.data.errCode === 0) {
       let cookie = new Cookies();
 
@@ -187,7 +197,7 @@ const Contacts = () => {
     let dateKeywordFormat = `${ngayFormatted}-${thangFormatted}-${namFormatted}`;
 
     let res = await axios.post(
-      "http://localhost:3434/api/search-contacts-by-date",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-contacts-by-date`,
       { dateKeywordFormat }
     );
     if (res && res.data.message === "OK") {

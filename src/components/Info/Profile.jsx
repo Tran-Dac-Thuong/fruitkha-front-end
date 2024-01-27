@@ -33,11 +33,14 @@ const Profile = (props) => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.auth_provider === "GOOGLE") {
           navigate("/");
@@ -94,7 +97,7 @@ const Profile = (props) => {
     formData.append("lastName", profileLastname);
     formData.append("image", avatar);
     let res = await axios.put(
-      "http://localhost:3434/api/update-profile",
+      `${process.env.REACT_APP_BACKEND_URL}/api/update-profile`,
       formData
     );
 
@@ -237,7 +240,7 @@ const Profile = (props) => {
                 />
               ) : (
                 <img
-                  src={`http://localhost:3434/images/users/${profileAvatar}`}
+                  src={`${process.env.REACT_APP_BACKEND_URL}/images/users/${profileAvatar}`}
                   width="80px"
                   className="show_avatar"
                   alt=""

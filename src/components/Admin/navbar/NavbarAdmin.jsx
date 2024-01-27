@@ -44,6 +44,7 @@ const NavbarAdmin = (props) => {
                 className="img-profile rounded-circle"
                 src="./assets/img/boy.png"
                 style={{ maxWidth: "60px" }}
+                alt=""
               />
               <span className="ml-2 d-none d-lg-inline text-white small">
                 {props.currentAdmin}

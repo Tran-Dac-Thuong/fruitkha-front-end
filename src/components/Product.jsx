@@ -32,7 +32,7 @@ const Product = (props) => {
 
   const FetchDataFruits = async (page) => {
     let res = await axios.get(
-      `http://localhost:3434/api/products?page=${
+      `${process.env.REACT_APP_BACKEND_URL}/api/products?page=${
         page ? page : currentPage
       }&limit=${currentLimit}`
     );
@@ -47,7 +47,7 @@ const Product = (props) => {
     setNameKeyword(event);
 
     let res = await axios.post(
-      "http://localhost:3434/api/search-product-by-name",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-product-by-name`,
       { nameKeyword: event.toUpperCase() }
     );
     if (res && res.data.message === "OK") {
@@ -57,7 +57,7 @@ const Product = (props) => {
 
   const HandleSearchByPrice = async () => {
     let res = await axios.post(
-      "http://localhost:3434/api/search-product-by-price",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-product-by-price`,
       { range }
     );
     if (res && res.data.message === "OK") {
@@ -67,7 +67,9 @@ const Product = (props) => {
 
   const HandleReset = async () => {
     setRange(0);
-    let res = await axios.get("http://localhost:3434/api/products");
+    let res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/products`
+    );
 
     if (res.data.products) {
       setAllProducts(res.data.products);
@@ -176,7 +178,7 @@ const Product = (props) => {
                               <div className="product-image">
                                 <Link to={`/product/${item.id}`}>
                                   <img
-                                    src={`http://localhost:3434/images/fruits/${item.image}`}
+                                    src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${item.image}`}
                                     alt=""
                                   />
                                 </Link>

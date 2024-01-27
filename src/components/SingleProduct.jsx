@@ -46,11 +46,14 @@ const SingleProduct = (props) => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "CUSTOMER") {
           setCurrentUserId(verify.data.id);
@@ -150,7 +153,7 @@ const SingleProduct = (props) => {
   useEffect(() => {
     async function fetchData() {
       let res = await axios.get(
-        `http://localhost:3434/api/relate-products/${id}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/relate-products/${id}`
       );
       if (res.data.relateProducts) {
         setRelateProducts(res.data.relateProducts);
@@ -162,7 +165,9 @@ const SingleProduct = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get(`http://localhost:3434/api/products/${id}`);
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`
+      );
 
       if (res && res.data) {
         setDetailProduct(res.data.products);
@@ -250,7 +255,7 @@ const SingleProduct = (props) => {
                   <div className="col-md-5">
                     <div className="single-product-img">
                       <img
-                        src={`http://localhost:3434/images/fruits/${detailProduct.image}`}
+                        src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${detailProduct.image}`}
                         alt=""
                       />
                     </div>
@@ -434,7 +439,7 @@ const SingleProduct = (props) => {
                                     onClick={() => setChangeFruit("Changed")}
                                   >
                                     <img
-                                      src={`http://localhost:3434/images/fruits/${item.image}`}
+                                      src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${item.image}`}
                                       alt=""
                                     />
                                   </Link>

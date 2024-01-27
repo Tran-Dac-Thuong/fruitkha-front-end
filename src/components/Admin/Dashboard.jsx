@@ -33,11 +33,14 @@ const Dashboard = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "ADMIN") {
           setCurrentAdmin(verify.data.username);
@@ -58,7 +61,9 @@ const Dashboard = () => {
   }, []);
 
   const FetchTotalOrders = async () => {
-    let res = await axios.get(`http://localhost:3434/api/get-total-orders`);
+    let res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/get-total-orders`
+    );
     if (res && res.data.message === "OK") {
       setTotalOrders(res.data.totalOrders);
       setLoading(true);
@@ -70,7 +75,9 @@ const Dashboard = () => {
   }, []);
 
   const FetchTotalUsers = async () => {
-    let res = await axios.get(`http://localhost:3434/api/get-total-users`);
+    let res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/get-total-users`
+    );
     if (res && res.data.message === "OK") {
       setTotalUsers(res.data.totalUsers);
       setLoading(true);
@@ -82,7 +89,9 @@ const Dashboard = () => {
   }, []);
 
   const FetchTotalPending = async () => {
-    let res = await axios.get(`http://localhost:3434/api/get-total-pending`);
+    let res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/get-total-pending`
+    );
     if (res && res.data.message === "OK") {
       setPending(res.data.pendingRequest);
       setLoading(true);
@@ -104,7 +113,9 @@ const Dashboard = () => {
   }, [totalOrders, currentMonth]);
 
   const HandleAdminLogout = async () => {
-    let logout = await axios.get("http://localhost:3434/api/logout");
+    let logout = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+    );
     if (logout.data.errCode === 0) {
       let cookie = new Cookies();
 

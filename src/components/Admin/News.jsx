@@ -42,11 +42,14 @@ const News = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "ADMIN") {
           setCurrentAdmin(verify.data.username);
@@ -68,7 +71,7 @@ const News = () => {
 
   const FetchDataNews = async (page) => {
     let res = await axios.get(
-      `http://localhost:3434/api/news?page=${
+      `${process.env.REACT_APP_BACKEND_URL}/api/news?page=${
         page ? page : currentPage
       }&limit=${currentLimit}`
     );
@@ -205,7 +208,7 @@ const News = () => {
     formData.append("created_at", formattedDate);
     formData.append("image", image);
     let response = await axios.post(
-      "http://localhost:3434/api/create-news",
+      `${process.env.REACT_APP_BACKEND_URL}/api/create-news`,
       formData
     );
     if (response && response.data.message === "Create success") {
@@ -235,7 +238,7 @@ const News = () => {
     formData.append("content", content);
     formData.append("image", image);
     let res = await axios.put(
-      "http://localhost:3434/api/update-news",
+      `${process.env.REACT_APP_BACKEND_URL}/api/update-news`,
       formData
     );
     setStatus("Update");
@@ -245,7 +248,9 @@ const News = () => {
   const HandleDeleteNews = async () => {
     let oldLength = allNews.length;
 
-    await axios.delete(`http://localhost:3434/api/delete-news/${id}`);
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/delete-news/${id}`
+    );
 
     if (oldLength - 1 === 0) {
       setAllNews([]);
@@ -257,7 +262,9 @@ const News = () => {
   };
 
   const HandleAdminLogout = async () => {
-    let logout = await axios.get("http://localhost:3434/api/logout");
+    let logout = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+    );
     if (logout.data.errCode === 0) {
       let cookie = new Cookies();
 
@@ -283,7 +290,7 @@ const News = () => {
     let dateKeywordFormat = `${ngayFormatted}-${thangFormatted}-${namFormatted}`;
 
     let res = await axios.post(
-      "http://localhost:3434/api/search-news-by-date",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-news-by-date`,
       { dateKeywordFormat }
     );
     if (res && res.data.message === "OK") {
@@ -400,7 +407,7 @@ const News = () => {
             <br />
             <img
               className="current_img"
-              src={`http://localhost:3434/images/news/${currentImg}`}
+              src={`${process.env.REACT_APP_BACKEND_URL}/images/news/${currentImg}`}
               width="80px"
               alt=""
             />
@@ -519,7 +526,7 @@ const News = () => {
 
                                   <td>
                                     <img
-                                      src={`http://localhost:3434/images/news/${item.image}`}
+                                      src={`${process.env.REACT_APP_BACKEND_URL}/images/news/${item.image}`}
                                       alt=""
                                       width="80px"
                                     />

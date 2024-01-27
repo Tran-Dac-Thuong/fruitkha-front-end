@@ -50,11 +50,14 @@ const Products = () => {
   useEffect(() => {
     let cookie = new Cookies();
     let checkVerify = async () => {
-      let verify = await axios.get("http://localhost:3434/api/check-cookie", {
-        headers: {
-          "access-token": cookie.get("token"),
-        },
-      });
+      let verify = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/check-cookie`,
+        {
+          headers: {
+            "access-token": cookie.get("token"),
+          },
+        }
+      );
       if (verify.data.message === "Success") {
         if (verify.data.role === "ADMIN") {
           setCurrentAdmin(verify.data.username);
@@ -76,7 +79,7 @@ const Products = () => {
 
   const FetchDataFruits = async (page) => {
     let res = await axios.get(
-      `http://localhost:3434/api/products?page=${
+      `${process.env.REACT_APP_BACKEND_URL}/api/products?page=${
         page ? page : currentPage
       }&limit=${currentLimit}`
     );
@@ -226,7 +229,7 @@ const Products = () => {
     formData.append("quantity", quantity);
     formData.append("image", image);
     let response = await axios.post(
-      "http://localhost:3434/api/create-product",
+      `${process.env.REACT_APP_BACKEND_URL}/api/create-product`,
       formData
     );
 
@@ -259,7 +262,7 @@ const Products = () => {
     formData.append("quantity", quantity);
     formData.append("image", image);
     let res = await axios.put(
-      "http://localhost:3434/api/update-product",
+      `${process.env.REACT_APP_BACKEND_URL}/api/update-product`,
       formData
     );
     setStatus("Update");
@@ -269,7 +272,9 @@ const Products = () => {
   const HandleDeleteProduct = async () => {
     let oldLength = allProduct.length;
 
-    await axios.delete(`http://localhost:3434/api/delete-product/${id}`);
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/delete-product/${id}`
+    );
 
     if (oldLength - 1 === 0) {
       setAllProduct([]);
@@ -280,7 +285,9 @@ const Products = () => {
   };
 
   const HandleAdminLogout = async () => {
-    let logout = await axios.get("http://localhost:3434/api/logout");
+    let logout = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/logout`
+    );
     if (logout.data.errCode === 0) {
       let cookie = new Cookies();
 
@@ -293,7 +300,7 @@ const Products = () => {
 
   const HandleSearchProduct = async () => {
     let res = await axios.post(
-      "http://localhost:3434/api/search-product-by-name",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-product-by-name`,
       { nameKeyword: nameKeyword.toUpperCase() }
     );
     if (res && res.data.message === "OK") {
@@ -309,7 +316,7 @@ const Products = () => {
 
     setProductStockingStatus("Stocking");
     let res = await axios.post(
-      "http://localhost:3434/api/search-product-by-status",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-product-by-status`,
       {
         productSoldoutStatus: clickStocking
           ? ""
@@ -335,7 +342,7 @@ const Products = () => {
     setProductSoldoutStatus("Sold out");
 
     let res = await axios.post(
-      "http://localhost:3434/api/search-product-by-status",
+      `${process.env.REACT_APP_BACKEND_URL}/api/search-product-by-status`,
       {
         productSoldoutStatus: productSoldoutStatus ? productSoldoutStatus : "",
         productStockingStatus: clickSoldOut
@@ -364,10 +371,13 @@ const Products = () => {
 
   const HandleUpdateStatusProduct = async () => {
     let status = "Sold out";
-    await axios.put("http://localhost:3434/api/update-status-product", {
-      status,
-      id,
-    });
+    await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/update-status-product`,
+      {
+        status,
+        id,
+      }
+    );
     setShowStatusModal(false);
     setStatus("Update Status");
     toast.success("Update status success");
@@ -537,7 +547,7 @@ const Products = () => {
             <br />
             <img
               className="current_img"
-              src={`http://localhost:3434/images/fruits/${currentImg}`}
+              src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${currentImg}`}
               width="80px"
               alt=""
             />
@@ -720,7 +730,7 @@ const Products = () => {
                                   <td>{item.quantity}</td>
                                   <td>
                                     <img
-                                      src={`http://localhost:3434/images/fruits/${item.image}`}
+                                      src={`${process.env.REACT_APP_BACKEND_URL}/images/fruits/${item.image}`}
                                       alt=""
                                       width="80px"
                                     />

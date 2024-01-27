@@ -22,7 +22,9 @@ const News = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      let res = await axios.get("http://localhost:3434/api/news");
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/news`
+      );
       if (res.data.news) {
         setAllNews(res.data.news);
         setLoadingNews(true);
@@ -107,7 +109,8 @@ const News = (props) => {
                               <Link to={`/news/${item.id}`}>
                                 <div className="news-bg-1">
                                   <img
-                                    src={`http://localhost:3434/images/news/${item.image}`}
+                                    src={`${process.env.REACT_APP_BACKEND_URL}/images/news/${item.image}`}
+                                    alt=""
                                   />
                                 </div>
                               </Link>

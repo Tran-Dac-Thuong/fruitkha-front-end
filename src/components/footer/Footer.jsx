@@ -44,7 +44,7 @@ const Footer = () => {
     setLoading(true);
 
     let res = await axios.post(
-      "http://localhost:3434/api/send-email-subscribe",
+      `${process.env.REACT_APP_BACKEND_URL}/api/send-email-subscribe`,
       {
         email,
       }
