@@ -9,7 +9,6 @@ const Success = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const listCarts = useSelector((state) => state.cart.listCarts);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (
@@ -56,45 +55,61 @@ const Success = () => {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    if (
-      searchParams.get("partnerCode") === "MOMO" &&
-      searchParams.get("message") === "Transaction+denied+by+user."
-    ) {
-      navigate("/");
-      window.location.reload();
-    }
-  }, [searchParams]);
-
   return (
     <>
-      <div className="card_boxxx">
-        <div className="cardddd">
-          <div
-            style={{
-              borderRadius: "200px",
-              height: "200px",
-              width: "200px",
-              background: "#F8FAF5",
-              margin: "0 auto",
-            }}
-          >
-            <i id="markkk" className="checkmark">
-              ✓
-            </i>
+      {searchParams.get("message") === "Transaction+denied+by+user." && (
+        <div className="card_cancel_boxxx">
+          <div class="card_cancel">
+            <div
+              style={{
+                borderRadius: "200px",
+                height: "200px",
+                width: "200px",
+                background: "#F8FAF5",
+                margin: "0 auto",
+              }}
+            >
+              <i id="circle_cancel" class="far fa-times-circle"></i>
+            </div>
+            <h1 className="cancel_titleee">Fail</h1>
+            <p className="cancel_contenttt">Transaction denied by you.</p>
+            <br />
+            <br />
+            <Link className="back_home_cancel" to="/">
+              Go Back To Home
+            </Link>
           </div>
-          <h1 className="success_titleee">Success</h1>
-          <p className="success_contenttt">
-            We received your purchase request;
-            <br /> We will contact you later!
-          </p>
-          <br />
-          <br />
-          <Link className="back_homeeee" to="/">
-            Go Back To Home
-          </Link>
         </div>
-      </div>
+      )}
+      {searchParams.get("message") === "Successful." && (
+        <div className="card_boxxx">
+          <div className="cardddd">
+            <div
+              style={{
+                borderRadius: "200px",
+                height: "200px",
+                width: "200px",
+                background: "#F8FAF5",
+                margin: "0 auto",
+              }}
+            >
+              <i id="markkk" className="checkmark">
+                ✓
+              </i>
+            </div>
+            <h1 className="success_titleee">Success</h1>
+            <p className="success_contenttt">
+              We received your purchase request;
+              <br /> We will contact you later!
+            </p>
+            <br />
+            <br />
+            <Link className="back_homeeee" to="/">
+              Go Back To Home
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };
