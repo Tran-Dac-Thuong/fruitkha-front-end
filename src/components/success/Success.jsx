@@ -53,7 +53,11 @@ const Success = () => {
       };
 
       HandlePlaceOrderMomo();
-    } else if (
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (
       searchParams.get("partnerCode") === "MOMO" &&
       searchParams.get("message") === "Transaction+denied+by+user."
     ) {
