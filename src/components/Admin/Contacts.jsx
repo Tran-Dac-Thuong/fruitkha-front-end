@@ -282,7 +282,7 @@ const Contacts = () => {
             {loading === true ? (
               <button class="btn btn-primary" disabled>
                 <span class="spinner-border spinner-border-sm"></span>
-                Loading..
+                Sending...
               </button>
             ) : (
               <button
