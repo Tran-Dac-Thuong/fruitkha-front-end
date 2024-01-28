@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import "./Success.scss";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,12 +7,15 @@ import { removeFromCart } from "../../redux/actions/actions";
 
 const Success = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [status, setStatus] = useState("");
   const listCarts = useSelector((state) => state.cart.listCarts);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (searchParams.get("partnerCode") === "MOMO") {
+    if (
+      searchParams.get("partnerCode") === "MOMO" &&
+      searchParams.get("message") === "Successful."
+    ) {
       const HandlePlaceOrderMomo = async () => {
         let timestamp = Date.now();
 
@@ -47,10 +50,15 @@ const Success = () => {
 
           dispatch(removeFromCart(carts.id, carts.user_id));
         }
-        setStatus("Paid");
       };
 
       HandlePlaceOrderMomo();
+    } else if (
+      searchParams.get("partnerCode") === "MOMO" &&
+      searchParams.get("message") === "Transaction+denied+by+user."
+    ) {
+      navigate("/");
+      window.location.reload();
     }
   }, [searchParams]);
 
