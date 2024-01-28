@@ -57,7 +57,7 @@ const Success = () => {
 
   return (
     <>
-      {searchParams.get("message") === "Transaction+denied+by+user." && (
+      {searchParams.get("message") === "Transaction denied by user." && (
         <div className="card_cancel_boxxx">
           <div class="card_cancel">
             <div
