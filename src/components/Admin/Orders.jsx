@@ -113,6 +113,7 @@ const Orders = () => {
     if (res && res.data.message === "OK") {
       setAllOrders(res.data.search_orders);
     } else if (res && res.data.message === "Fail") {
+      setAllOrders([]);
       setOrdersEmpty(true);
     }
   };

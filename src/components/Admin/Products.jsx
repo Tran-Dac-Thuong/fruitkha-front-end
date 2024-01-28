@@ -306,6 +306,7 @@ const Products = () => {
     if (res && res.data.message === "OK") {
       setAllProduct(res.data.search_product);
     } else if (res && res.data.message === "Fail") {
+      setAllProduct([]);
       setProductsEmpty(true);
     }
   };
@@ -334,6 +335,7 @@ const Products = () => {
     if (res && res.data.message === "OK") {
       setAllProduct(res.data.search_product_by_status);
     } else if (res && res.data.message === "Fail") {
+      setAllProduct([]);
       setProductsEmpty(true);
     }
   };
@@ -359,6 +361,7 @@ const Products = () => {
     if (res && res.data.message === "OK") {
       setAllProduct(res.data.search_product_by_status);
     } else if (res && res.data.message === "Fail") {
+      setAllProduct([]);
       setProductsEmpty(true);
     }
   };

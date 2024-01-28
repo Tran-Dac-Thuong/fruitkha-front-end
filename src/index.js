@@ -13,13 +13,13 @@ import "bootstrap/dist/js/bootstrap.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <GoogleOAuthProvider clientId="166897071907-2gqj63fdden1escn0nem5e373qs7bn18.apps.googleusercontent.com">
-        <CookiesProvider defaultSetOptions={{ path: "/" }}>
-          <App persistor={persistor} />
-        </CookiesProvider>
-      </GoogleOAuthProvider>
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <GoogleOAuthProvider clientId="166897071907-2gqj63fdden1escn0nem5e373qs7bn18.apps.googleusercontent.com">
+      <CookiesProvider defaultSetOptions={{ path: "/" }}>
+        <App persistor={persistor} />
+      </CookiesProvider>
+    </GoogleOAuthProvider>
+    {/* </React.StrictMode> */}
   </Provider>
 );
 

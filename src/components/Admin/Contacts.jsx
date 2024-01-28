@@ -203,6 +203,7 @@ const Contacts = () => {
     if (res && res.data.message === "OK") {
       setAllContact(res.data.search_contacts);
     } else if (res && res.data.message === "Fail") {
+      setAllContact([]);
       setContactsEmpty(true);
     }
   };

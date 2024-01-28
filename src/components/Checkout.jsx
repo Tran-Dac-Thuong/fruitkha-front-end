@@ -241,42 +241,6 @@ const Checkout = (props) => {
     navigate("/");
   };
 
-  const HandlePlaceOrderMomo = async () => {
-    let timestamp = Date.now();
-
-    let date = new Date(timestamp);
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
-
-    let formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-
-    for (const carts of listCarts) {
-      console.log("check cartsss:", carts);
-      const newOrder = {
-        status: "Shipping in progress",
-        date: formattedDate,
-        userId: carts.user_id,
-        productId: carts.product_id,
-        quantity: carts.quantity,
-        totalCost: carts.productCartData.price * carts.quantity,
-        paymentMethod: "MOMO",
-      };
-
-      await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/place-order`,
-        newOrder
-      );
-
-      dispatch(removeFromCart(carts.id, carts.user_id));
-    }
-  };
-
   const HandlePaymentMomo = async () => {
     let res = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/payment-momo`,
@@ -287,8 +251,6 @@ const Checkout = (props) => {
     console.log("check momo: ", res);
     if (res && res.data.message === "OK") {
       window.location.href = res.data.payUrl;
-
-      HandlePlaceOrderMomo();
     }
   };
 

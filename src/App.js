@@ -27,6 +27,7 @@ import OrderHistory from "./components/OrderHistory";
 import ChatbotIcon from "./components/chatbot/ChatbotIcon";
 import LoadingBar from "react-top-loading-bar";
 import { useState } from "react";
+import Success from "./components/success/Success";
 
 function App() {
   const [progress, setProgress] = useState(0);
@@ -92,6 +93,7 @@ function App() {
               ></Route>
             </Route>
 
+            <Route path="/success" element={<Success />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/forbien" element={<Forbien />}></Route>
