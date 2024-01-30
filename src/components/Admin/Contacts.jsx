@@ -280,8 +280,8 @@ const Contacts = () => {
 
           <div className="form-group">
             {loading === true ? (
-              <button class="btn btn-primary" disabled>
-                <span class="spinner-border spinner-border-sm"></span>
+              <button className="btn btn-primary" disabled>
+                <span className="spinner-border spinner-border-sm"></span>
                 Sending...
               </button>
             ) : (

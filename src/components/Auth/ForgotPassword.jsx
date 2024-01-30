@@ -168,7 +168,10 @@ const ForgotPassword = () => {
 
                         <div className="form-group">
                           {loading === true ? (
-                            <button className="btn btn-primary" disabled>
+                            <button
+                              className="btn btn-primary btn-block"
+                              disabled
+                            >
                               <span className="spinner-border spinner-border-sm"></span>
                               {language === "VN" ? (
                                 <>Đang gửi...</>
