@@ -203,6 +203,13 @@ const Register = () => {
         authProvider,
       }
     );
+    if (!response) {
+      toast.error(
+        language === "VN"
+          ? "Có gì đó không đúng. Vui lòng thử lại"
+          : "Something wrong. Please try again"
+      );
+    }
     if (response && response.data.errCode !== 0) {
       toast.error(
         language === "VN" ? "Email đã tồn tại" : response.data.message

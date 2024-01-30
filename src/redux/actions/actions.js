@@ -22,6 +22,7 @@ export const fetchCurrentUser = (userId) => {
       let res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/get-current-user/${userId}`
       );
+
       if (res && res.data.message === "OK") {
         console.log("check current user: ", res.data.currentUser);
         dispatch(fetchCurrentUserSuccess(res.data.currentUser));

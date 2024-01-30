@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [validate, setValidate] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -69,18 +70,25 @@ const ForgotPassword = () => {
     if (!isValid) {
       return;
     }
-
+    setLoading(true);
     let response = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/forgot-password`,
       {
         email,
       }
     );
-    console.log("check res: ", response);
+    if (!response) {
+      toast.error(
+        language === "VN"
+          ? "Có gì đó không đúng. Vui lòng thử lại"
+          : "Something wrong. Please try again"
+      );
+    }
     if (response && response.data.errCode !== 0) {
       toast.error(response.data.message);
     } else {
       navigate("/login");
+      setLoading(false);
       toast.success(
         language === "VN"
           ? "Hướng dẫn thêm đã được gửi đến địa chỉ email của bạn."
@@ -159,16 +167,27 @@ const ForgotPassword = () => {
                         </div>
 
                         <div className="form-group">
-                          <div
-                            onClick={HandleSendMailToResetPassword}
-                            className="btn btn-primary btn-block"
-                          >
-                            {language === "VN" ? (
-                              <>Gửi email</>
-                            ) : (
-                              <>Send email</>
-                            )}
-                          </div>
+                          {loading === true ? (
+                            <button className="btn btn-primary" disabled>
+                              <span className="spinner-border spinner-border-sm"></span>
+                              {language === "VN" ? (
+                                <>Đang gửi...</>
+                              ) : (
+                                <>Sending...</>
+                              )}
+                            </button>
+                          ) : (
+                            <div
+                              onClick={HandleSendMailToResetPassword}
+                              className="btn btn-primary btn-block"
+                            >
+                              {language === "VN" ? (
+                                <>Gửi email</>
+                              ) : (
+                                <>Send email</>
+                              )}
+                            </div>
+                          )}
                         </div>
                       </form>
                     </div>

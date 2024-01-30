@@ -6,6 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
@@ -55,6 +56,13 @@ const ResetPassword = () => {
         password,
       }
     );
+    if (!response) {
+      toast.error(
+        language === "VN"
+          ? "Có gì đó không đúng. Vui lòng thử lại"
+          : "Something wrong. Please try again"
+      );
+    }
     if (response && response.data.message === "Reset success") {
       Swal.fire({
         position: "center",

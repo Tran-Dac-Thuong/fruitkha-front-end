@@ -96,6 +96,13 @@ const Contact = (props) => {
           contactCreateAt,
         }
       );
+      if (!response) {
+        toast.error(
+          language === "VN"
+            ? "Có gì đó không đúng. Vui lòng thử lại"
+            : "Something wrong. Please try again"
+        );
+      }
       if (response && response.data.message === "Submit success") {
         setContactName("");
         setContactEmail("");

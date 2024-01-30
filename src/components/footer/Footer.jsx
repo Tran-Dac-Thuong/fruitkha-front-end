@@ -49,6 +49,13 @@ const Footer = () => {
         email,
       }
     );
+    if (!res) {
+      toast.error(
+        language === "VN"
+          ? "Có gì đó không đúng. Vui lòng thử lại"
+          : "Something wrong. Please try again"
+      );
+    }
     if (res && res.data.message === "Subscribe success") {
       setTimeout(() => {
         setLoading(false);
