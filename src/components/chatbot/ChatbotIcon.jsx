@@ -11,7 +11,6 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const ChatbotIcon = () => {
   const [showChatBot, setShowChatBot] = useState(false);
@@ -46,13 +45,7 @@ const ChatbotIcon = () => {
         message,
       }
     );
-    if (!res) {
-      toast.error(
-        language === "VN"
-          ? "Có gì đó không đúng. Vui lòng thử lại"
-          : "Something wrong. Please try again"
-      );
-    }
+
     if (res && res.data.errCode === 0) {
       setMessages([
         ...newMessages,
